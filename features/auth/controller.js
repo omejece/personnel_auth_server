@@ -34,6 +34,7 @@ async function login(req,res,next){
         }
      }
      catch(err){
+        res.send(err)
         console.log(err);
         console.log(err.statusCode);
         let error = {status: 500, message:"server error"};

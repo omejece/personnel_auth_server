@@ -13,8 +13,8 @@ const corsOptions = {
     "Access-Control-Allow-Headers" : ["Content-Type","Authorization"]
 };
 
-app.use(bodyParser.json({limit: '100mb'}));
-app.use(bodyParser.urlencoded({extended: false,limit: '100mb'}));
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cors(corsOptions));
 
 

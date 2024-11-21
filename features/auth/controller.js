@@ -10,6 +10,7 @@ const Personnel = require("../../models").Personnel;
 async function login(req,res,next){
      try{
         
+        res.send(req.body.email)
         const result = await User.findOne({where:{email:req.body.email}});
         res.send(result)
         if(result){
@@ -34,7 +35,6 @@ async function login(req,res,next){
         }
      }
      catch(err){
-        res.send(err)
         console.log(err);
         console.log(err.statusCode);
         let error = {status: 500, message:"server error"};

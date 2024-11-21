@@ -7,7 +7,7 @@ const User = require("../../models").User;
 const Personnel = require("../../models").Personnel;
 
 
-async function login(req,res,next){
+const login = async (req,res,next)=>{
      try{
         const result = await User.findOne({where:{email:"omejece@gmail.com"}});
         console.log(result.password)
@@ -46,7 +46,7 @@ async function login(req,res,next){
 
 
 
-async function initialize(req,res,next){
+const initialize = async (req,res,next)=>{
     try{
         const result = await User.findAll();
         console.log(result);
@@ -96,7 +96,7 @@ async function initialize(req,res,next){
 }
 
 
-async function verify(req,res,next){
+const verify  = async (req,res,next)=>{
     try{
         let headerArr;
         let headerAuth = req.headers["authorization"];

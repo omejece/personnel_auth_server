@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 
 moduleLoader.loadRoutes().then(Routers=>{
      moduleLoader.loadControllers().then(Controllers=>{
-            app.use('/login',Controllers.auth.login);
+            app.post('/login',Controllers.auth.login);
             app.use('/auth',Controllers.auth.verify,Routers.auth);
             app.use('/personnel',Controllers.auth.verify,Routers.personnels);
             app.use('/user',Routers.users);

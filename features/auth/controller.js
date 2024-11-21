@@ -9,7 +9,7 @@ const Personnel = require("../../models").Personnel;
 
 async function login(req,res,next){
      try{
-        res.send(req.body)
+        res.send(req.body.email)
         const result = await User.findOne({where:{email:req.body.email}});
         
         if(result){

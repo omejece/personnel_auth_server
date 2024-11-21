@@ -76,8 +76,8 @@ const initialize = async (req,res,next)=>{
                 rememberToken: uniqid()
             });
 
-            await newUser1.save();
-            await newUser2.save();
+            var resp = await newUser1.save();
+            resp = await newUser2.save();
             res.status(200).send({success: true, message:"successfully added 1"});
         }
         else{

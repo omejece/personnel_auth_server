@@ -4,8 +4,10 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
-const moduleLoader = require("./moduleLoader");
+const authRoute = require('./features/auth/routes');
+const personnelRoute = require('./features/personnels/routes');
+const userRoute = require('./features/users/routes');
+const authController = require("./features/auth/controller");
 
 
 const corsOptions = {
@@ -17,21 +19,9 @@ app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cors(corsOptions));
 
-
-
-
-moduleLoader.loadRoutes().then(Routers=>{
-     moduleLoader.loadControllers().then(Controllers=>{
-            console.log(Controllers)
-            app.use('/auth',Routers.auth);
-            app.use('/personnel',Controllers.auth.verify,Routers.personnels);
-            app.use('/user',Routers.users);
-     }).catch(err=>{
-         console.log(err);
-     });
-}).catch(err=>{
-    console.log(err);
-});
+app.use('/auth',authRoute);
+app.use('/personnel',authController.verify,personnelRoute);
+app.use('/user',userRoute);
 
 
 

@@ -12,7 +12,7 @@ async function login(req,res,next){
         const result = await User.findOne({where:{email:"omejece@gmail.com"}});
         console.log(result.password)
         if(result){
-           const isPasswdMatch = await bcrypt.compare(req.body.password,result.password);
+           const isPasswdMatch = bcrypt.compare(req.body.password,result.password);
            
            if(isPasswdMatch){
                 const user = {
@@ -90,7 +90,7 @@ async function initialize(req,res,next){
         let error = {status: 500, message:"server error"};
         error.status = err?.status ? err?.status : error.status;
         error.message = err?.message ? err?.message : error.message;
-        res.status(err.status).send(error);
+        res.status(error.status).send(error);
     }
 }
 
@@ -134,7 +134,7 @@ async function verify(req,res,next){
         let error = {status: 500, message:"server error"};
         error.status = err?.status ? err?.status : error.status;
         error.message = err?.message ? err?.message : error.message;
-        res.status(err.status).send(error);
+        res.status(error.status).send(error);
     }
 } 
 

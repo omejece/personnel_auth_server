@@ -13,7 +13,8 @@ const login = async (req,res,next)=>{
         console.log(result)
         if(result){
            const isPasswdMatch = bcrypt.compare(req.body.password,result.password);
-           
+           console.log(isPasswdMatch)
+           console.log(result.password)
            if(isPasswdMatch){
                 const user = {
                     fName: result.fName,
@@ -76,8 +77,8 @@ const initialize = async (req,res,next)=>{
                 rememberToken: uniqid()
             });
 
-            var resp = await newUser1.save();
-            resp = await newUser2.save();
+            newUser1.save();
+            newUser2.save();
             res.status(200).send({success: true, message:"successfully added 1"});
         }
         else{

@@ -11,7 +11,6 @@ async function login(req,res,next){
      try{
 
         const result = await User.findOne({where:{email:req.body.email}});
-        res.status(200).send('djdkddldldldldl')
         if(result){
            const isPasswdMatch = await bcrypt.compare(req.body.password,result.password);
            if(isPasswdMatch){

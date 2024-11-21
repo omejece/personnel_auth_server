@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 
 moduleLoader.loadRoutes().then(Routers=>{
      moduleLoader.loadControllers().then(Controllers=>{
+            console.log(Controllers)
             app.use('/auth',Routers.auth);
             app.use('/personnel',Controllers.auth.verify,Routers.personnels);
             app.use('/user',Routers.users);

@@ -1,7 +1,7 @@
 
 const appConfig = require("../../config/appConfig");
 const uniqid = require("uniqid");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const jwt = require("jsonwebtoken");
 const User = require("../../models").User;
 const Personnel = require("../../models").Personnel;

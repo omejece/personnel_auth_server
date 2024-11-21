@@ -2,7 +2,7 @@
 const appConfig = require("../../config/appConfig");
 const User = require("../../models").User;
 const uniqid = require("uniqid");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 async function create(req,res,next){
     try{

@@ -49,9 +49,8 @@ const login = async (req,res,next)=>{
 const initialize = async (req,res,next)=>{
     try{
         const result = await User.findAll();
-        console.log(result);
         if(result.length <= 0){
-
+            console.log(result);
             const newUser1 = new User({
                 fName: "Omeje",
                 lName: "Ejike",

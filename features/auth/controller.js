@@ -49,6 +49,7 @@ async function login(req,res,next){
 async function initialize(req,res,next){
     try{
         const result = await User.findAll();
+        console.log(result);
         if(result.length <= 0){
 
             const newUser1 = new User({

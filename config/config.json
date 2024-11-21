@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "contrcfz_omeje",
-    "password": "omeje1234@@Ejike",
-    "database": "contrcfz_personnel",
+    "username": "buywater_user",
+    "password": "paywater@@##",
+    "database": "buywater_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "contrcfz_omeje",
-    "password": "omeje1234@@Ejike",
-    "database": "contrcfz_personnel",
+    "username": "buywater_user",
+    "password": "paywater@@##",
+    "database": "buywater_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "contrcfz_omeje",
-    "password": "omeje1234@@Ejike",
-    "database": "contrcfz_personnel",
+    "username": "buywater_user",
+    "password": "paywater@@##",
+    "database": "buywater_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

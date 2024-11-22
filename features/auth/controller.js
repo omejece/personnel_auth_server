@@ -12,24 +12,28 @@ const login =  (req,res,next)=>{
             if(err){
                 res.status(500).send(err);
             }
-            
-            bcrypt.compare(req.body.password,result.password,(err,result2)=>{
-                 if(err){
-                    res.status(401).send("invalid username or password");
-                 }
-
-                 const user = {
-                    fName: result.fName,
-                    lName: result.lName,
-                    email: result.email,
-                    phone: result.phone,
-                    image: result.image
-                };
-                const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
-                res.status(200).send({user:user,token:token});
-                 
-            });
-
+            console.log(result)
+            if(result){
+                bcrypt.compare(req.body.password,result.password,(err,result2)=>{
+                    if(err){
+                       res.status(401).send("invalid username or password");
+                    }
+   
+                    const user = {
+                       fName: result.fName,
+                       lName: result.lName,
+                       email: result.email,
+                       phone: result.phone,
+                       image: result.image
+                   };
+                   const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
+                   res.status(200).send({user:user,token:token});
+                    
+               });
+            }
+            else{
+                res.status(401).send("invalid username or password");
+            }
     });
 }
 

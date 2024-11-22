@@ -122,6 +122,26 @@ async function read(req,res,next){
     }
 }
 
+async function authenticate(req,res,next){
+    try{
+        let result = await Personnel.findOne({where:{armyNumber:req.body.armyNumber}});
+        if(result){
+            res.status(200).send({success: true,data:result});
+        }
+        else{
+            res.status(200).send({success: false,data:"There is no record of this personnel"});
+        }
+    }
+    catch(err){
+        console.log(err);
+        let error = {status: 500, message:"server error"};
+        error.status = err?.status ? err?.status : error.status;
+        error.message = err?.message ? err?.message : error.message;
+        res.status(error.status).send(error);
+    }
+}
+
+
 async function readAll(req,res,next){
     try{
         let result = await Personnel.findAll();
@@ -276,5 +296,6 @@ module.exports = {
     changePassword,
     changeImage,
     passwordResetRequest,
-    resetPassword
+    resetPassword,
+    authenticate
 }

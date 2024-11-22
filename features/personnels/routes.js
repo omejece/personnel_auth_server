@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require("../auth/controller");
 const controller = require("./controller");
 
+router.post('/authenticate',controller.authenticate);
 router.post("/",authController.verify,controller.create);
 router.put("/:id",authController.verify,controller.update);
 router.put("/image",authController.verify,controller.changeImage);

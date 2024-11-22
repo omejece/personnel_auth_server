@@ -11,24 +11,27 @@ const login = async (req,res,next)=>{
      try{
         const result = await User.findOne({where:{email:req.body.email}});
         if(result){
-            console.log(result.password);
-           const isPasswdMatch = await bcrypt.compare(req.body.password,result.password);
-           console.log(isPasswdMatch)
-           
-           if(isPasswdMatch){
-                const user = {
-                    fName: result.fName,
-                    lName: result.lName,
-                    email: result.email,
-                    phone: result.phone,
-                    image: result.image
-                };
-                const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
-                res.status(200).send({user:user,token:token});
-           } 
-           else{
-               throw {status:401,message:"invalid username or password"};
-           }
+           console.log(result.password);
+           bcrypt.compare(req.body.password,result.password,(err,resp)=>{
+                if(err){
+                    res.status(401).send({status:401,message:"invalid username or password"});
+                }
+
+                if(resp){
+                    const user = {
+                        fName: result.fName,
+                        lName: result.lName,
+                        email: result.email,
+                        phone: result.phone,
+                        image: result.image
+                    };
+                    const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
+                    res.status(200).send({user:user,token:token});
+                }
+                else{
+                    res.status(401).send({status:401,message:"invalid username or password"});
+                }
+           });
         }
         else{
             throw {status:401,message:"invalid username or password"};

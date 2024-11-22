@@ -10,9 +10,8 @@ const Personnel = require("../../models").Personnel;
 const login = async (req,res,next)=>{
      try{
         const result = await User.findOne({where:{email:req.body.email}});
-        console.log(result)
         if(result){
-           const isPasswdMatch = bcrypt.compare(req.body.password,result.password);
+           const isPasswdMatch = await bcrypt.compare(req.body.password,result.password);
            console.log(isPasswdMatch)
            console.log(result.password)
            if(isPasswdMatch){

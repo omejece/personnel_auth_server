@@ -103,14 +103,13 @@ const verify  = async (req,res,next)=>{
     try{
         let headerArr;
         let headerAuth = req.headers["authorization"];
-        
+        console.log(headerAuth)
         if(headerAuth){
                  headerArr = headerAuth.split(" ");
                 if(headerArr[0] === "Bearer"){
                     const token = headerArr[1];
                     if(token){
                         console.log(token);
-                        console.log(appConfig.jwt_secret);
                         const decoded = await jwt.verify(token,appConfig.jwt_secret);
                         if(decoded){
                                 req.auth = decoded;

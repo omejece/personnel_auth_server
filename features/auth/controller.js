@@ -7,8 +7,8 @@ const User = require("../../models").User;
 const Personnel = require("../../models").Personnel;
 
 
-const login = async (req,res,next)=>{
-    await User.findOne({where:{email:req.body.password}},(err,result)=>{
+const login =  (req,res,next)=>{
+    User.findOne({where:{email:req.body.password}},(err,result)=>{
             if(err){
                 res.status(500).send(err);
             }

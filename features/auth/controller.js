@@ -11,9 +11,10 @@ const login = async (req,res,next)=>{
      try{
         const result = await User.findOne({where:{email:req.body.email}});
         if(result){
+            console.log(result.password);
            const isPasswdMatch = await bcrypt.compare(req.body.password,result.password);
            console.log(isPasswdMatch)
-           console.log(result.password)
+           
            if(isPasswdMatch){
                 const user = {
                     fName: result.fName,

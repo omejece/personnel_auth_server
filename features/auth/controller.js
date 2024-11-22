@@ -7,34 +7,42 @@ const User = require("../../models").User;
 const Personnel = require("../../models").Personnel;
 
 
-const login =  (req,res,next)=>{
-    User.findOne({where:{email:req.body.password}},(err,result)=>{
-            if(err){
-                res.status(500).send(err);
-            }
-            console.log(result)
-            if(result){
-                bcrypt.compare(req.body.password,result.password,(err,result2)=>{
-                    if(err){
-                       res.status(401).send("invalid username or password");
-                    }
-   
-                    const user = {
-                       fName: result.fName,
-                       lName: result.lName,
-                       email: result.email,
-                       phone: result.phone,
-                       image: result.image
-                   };
-                   const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
-                   res.status(200).send({user:user,token:token});
-                    
-               });
-            }
-            else{
-                res.status(401).send("invalid username or password");
-            }
-    });
+const login = async (req,res,next)=>{
+     try{
+        const result = await User.findOne({where:{email:req.body.password}});
+        console.log(result)
+        if(result){
+           const isPasswdMatch = bcrypt.compare(req.body.password,result.password);
+           console.log(isPasswdMatch)
+           console.log(result.password)
+           if(isPasswdMatch){
+                const user = {
+                    fName: result.fName,
+                    lName: result.lName,
+                    email: result.email,
+                    phone: result.phone,
+                    image: result.image
+                };
+                const token = jwt.sign(user,appConfig.jwt_secret,{expiresIn: "600h"});
+                res.status(200).send({user:user,token:token});
+           } 
+           else{
+               throw {status:401,message:"invalid username or password"};
+           }
+        }
+        else{
+            throw {status:401,message:"invalid username or password"};
+        }
+     }
+     catch(err){
+        console.log(err);
+        console.log(err.statusCode);
+        let error = {status: 500, message:"server error"};
+        error.status = err?.statusCode ? err?.statusCode : error.status;
+        error.message = err?.message ? err?.message : error.message;
+        res.status(error.status).send(error);
+     }
+     
 }
 
 

@@ -8,7 +8,7 @@ async function create(req,res,next){
     try{
         let result = await Personnel.findOne({where:{email:req.body.email}});
         if(!result){
-            const newUser = Personnel({
+            await Personnel.create({
                 fName: req.body.fName,
                 mName: req.body.mName,
                 lName: req.body.lName,
@@ -21,7 +21,6 @@ async function create(req,res,next){
                 image: req.body.image,
                 rememberToken: uniqid()
             });
-            await newUser.save();
             res.status(200).send({success: true, message:"Personnel added successfully"});
         }
         else{

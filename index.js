@@ -4,6 +4,7 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const bcrypt = require('bcrypt-nodejs');
 const authRoute = require('./features/auth/routes');
 const personnelRoute = require('./features/personnels/routes');
 const userRoute = require('./features/users/routes');
@@ -35,6 +36,7 @@ app.use((err, req, res, next) => {
 const server = http.createServer(app);
 
 server.listen(7000,()=>{
+     
      console.log(`server listening at port ${process.env.SEEVER_API_PORT}  at ip of ${process.env.SEEVER_API_SERVER}` );
 });
 

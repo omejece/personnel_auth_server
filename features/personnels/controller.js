@@ -6,8 +6,9 @@ const bcrypt = require('bcrypt-nodejs');
 
 async function create(req,res,next){
     try{
-        let result = await Personnel.findOne({where:{email:req.body.email}});
+        let result = await Personnel.findOne({where:{armyNumber:req.body.armyNumber}});
         if(!result){
+            const salt = bcrypt.genSaltSync(10);
             await Personnel.create({
                 fName: req.body.fName,
                 mName: req.body.mName,
@@ -16,7 +17,7 @@ async function create(req,res,next){
                 armyNumber: req.body.armyNumber,
                 rank: req.body.rank,
                 email: req.body.email,
-                password: bcrypt.hashSync(req.body.password,10),
+                password: bcrypt.hashSync(req.body.password,salt),
                 phone: req.body.phone,
                 image: req.body.image,
                 rememberToken: uniqid()

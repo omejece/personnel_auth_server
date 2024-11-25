@@ -6,13 +6,14 @@ const bcrypt = require('bcrypt-nodejs');
 
 async function create(req,res,next){
     try{
+        const salt = bcrypt.genSaltSync(10);
         let result = await User.findOne({where:{email:req.body.email}});
         if(!result){
             const newUser = User({
                 fName: req.body.fName,
                 lName: req.body.lName,
                 email: req.body.email,
-                password: await bcrypt.hash(req.body.password,10),
+                password: await bcrypt.hash(req.body.password,salt),
                 phone: req.body.phone,
                 image: req?.body?.image,
                 rememberToken: uniqid()

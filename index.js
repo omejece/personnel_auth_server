@@ -9,7 +9,15 @@ const authRoute = require('./features/auth/routes');
 const personnelRoute = require('./features/personnels/routes');
 const userRoute = require('./features/users/routes');
 const authController = require("./features/auth/controller");
+const https = require('https');
+const fs = require('fs');
 
+
+
+const options = {
+    key: fs.readFileSync('../../ssl/keys/b8250_7dccd_5da064ca7bc584cf1eb9173bf7fdb6cd.key'), // Private key
+    cert: fs.readFileSync('../../ssl/certs/meteradmin_buywater_store_b8250_7dccd_1739750025_7fac1937156077828d68994ae6365952.crt'), // Certificate
+};
 
 const corsOptions = {
     "Access-Control-Allow-Origin": "*",
@@ -33,10 +41,16 @@ app.use((err, req, res, next) => {
 });
 
 
+const server2 = https.createServer(options, app);
+
 const server = http.createServer(app);
 
-server.listen(7000,()=>{
-     
+
+server2.listen(7000,()=>{
+    console.log(`server listening at port ${process.env.SEEVER_API_PORT}  at ip of ${process.env.SEEVER_API_SERVER}` );
+});
+
+server.listen(8000,()=>{
      console.log(`server listening at port ${process.env.SEEVER_API_PORT}  at ip of ${process.env.SEEVER_API_SERVER}` );
 });
 

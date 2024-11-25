@@ -16,7 +16,7 @@ async function create(req,res,next){
                 armyNumber: req.body.armyNumber,
                 rank: req.body.rank,
                 email: req.body.email,
-                password: await bcrypt.hash(req.body.password,10),
+                password: bcrypt.hashSync(req.body.password,10),
                 phone: req.body.phone,
                 image: req.body.image,
                 rememberToken: uniqid()

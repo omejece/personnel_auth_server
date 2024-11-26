@@ -24,6 +24,9 @@ module.exports = {
       armyNumber: {
         type: Sequelize.STRING
       },
+      hashedArmyNo: {
+        type: Sequelize.STRING
+      },
       rank: {
         type: Sequelize.STRING
       },

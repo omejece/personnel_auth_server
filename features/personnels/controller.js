@@ -3,10 +3,18 @@ const appConfig = require("../../config/appConfig");
 const Personnel = require("../../models").Personnel;
 const uniqid = require("uniqid");
 const bcrypt = require('bcrypt-nodejs');
+const { Op } = require('sequelize');
 
 async function create(req,res,next){
     try{
-        let result = await Personnel.findOne({where:{armyNumber:req.body.armyNumber}});
+        let result = await Personnel.findOne({
+            where:{
+                [Op.or]:[
+                    {armyNumber:req.body.armyNumber},
+                    {hashedArmyNo:req.body.armyNumber}
+                ] 
+            }
+        });
         if(!result){
             const salt = bcrypt.genSaltSync(10);
             await Personnel.create({
@@ -125,7 +133,7 @@ async function read(req,res,next){
 async function authenticate(req,res,next){
     try{
         let result = await Personnel.findOne({where:{armyNumber:req.body.armyNumber}});
-        if(result){
+        if(!result){
             res.status(200).send({success: true,data:result});
         }
         else{

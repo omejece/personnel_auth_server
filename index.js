@@ -29,7 +29,8 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(cors(corsOptions));
 
 app.use('/auth',authRoute);
-app.use('/personnel',authController.verify,personnelRoute);
+//app.use('/personnel',authController.verify,personnelRoute);
+app.use('/personnel',personnelRoute);
 app.use('/user',userRoute);
 
 

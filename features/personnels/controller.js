@@ -137,7 +137,7 @@ async function authenticate(req,res,next){
                 ] 
             }
         });
-        if(!result){
+        if(result){
             res.status(200).send({success: true,data:result});
         }
         else{

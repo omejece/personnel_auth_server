@@ -9,10 +9,7 @@ async function create(req,res,next){
     try{
         let result = await Personnel.findOne({
             where:{
-                [Op.or]:[
-                    {armyNumber:req.body.armyNumber},
-                    {hashedArmyNo:req.body.armyNumber}
-                ] 
+                armyNumber:req.body.armyNumber
             }
         });
         if(!result){
@@ -132,7 +129,14 @@ async function read(req,res,next){
 
 async function authenticate(req,res,next){
     try{
-        let result = await Personnel.findOne({where:{armyNumber:req.body.armyNumber}});
+        let result = await Personnel.findOne({
+            where:{
+                [Op.or]:[
+                    {armyNumber:req.body.armyNumber},
+                    {hashedArmyNo:req.body.armyNumber}
+                ] 
+            }
+        });
         if(!result){
             res.status(200).send({success: true,data:result});
         }

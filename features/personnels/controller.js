@@ -129,6 +129,7 @@ async function read(req,res,next){
 
 async function authenticate(req,res,next){
     try{
+        console.log(req.body.armyNumber);
         let result = await Personnel.findOne({
             where:{
                 [Op.or]:[
